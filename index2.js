@@ -59,6 +59,68 @@ const TOOGLE_TODO = 'TOOGLE_TODO';
 const ADD_GOAL = 'ADD_GOAL';
 const REMOVE_GOAL = 'REMOVE_GOAL';
 
+// Action CREATORS
+
+/**
+ * Action creator
+ * 
+ * @returns 
+ */
+function addTodoAction(todo) {
+  return {
+    type: ADD_TODO,
+    todo,
+  }
+}
+
+/**
+ * Action creator
+ * 
+ * @returns 
+ */
+function removeTodoAction(id) {
+  return {
+    type: REMOVE_TODO,
+    id,
+  }
+}
+
+/**
+ * Action creator
+ * 
+ * @returns 
+ */
+function addGoalAction(goal) {
+  return {
+    type: GOAL_TODO,
+    goal,
+  }
+}
+
+/**
+ * Action creator
+ * 
+ * @returns 
+ */
+function removeGoalAction() {
+  return {
+    type: GOAL_TODO,
+    id,
+  }
+}
+
+/**
+ * Action creator
+ * 
+ * @returns 
+ */
+function removeTodoAction() {
+  return {
+    type: REMOVE_TODO,
+    id,
+  }
+}
+
 // APP CODE
 // Esta función es un REDUCER, porque lo que hace es coger un estado en una action y reducirlo a un nuevo estado.
 // 'state = []' esto es de ES6
@@ -101,12 +163,62 @@ store.subscribe(() => {
   console.log('The new state is: ' + store.getState())
 })
 
-store.dispatch({
-  type: ADD_TODO,
+// store.dispatch({
+//   type: ADD_TODO,
+//   id: 0,
+//   name: 'Learn Redux Part I',
+//   complete: true
+// });
+
+store.dispatch(addTodoAction({
   id: 0,
-  name: 'Learn Redux',
+  name: 'Learn Redux Part I',
+  complete: true
+}));
+
+// store.dispatch({
+//   type: ADD_TODO,
+//   id: 1,
+//   name: 'Learn Redux  Part II',
+//   complete: true
+// });
+
+store.dispatch(addTodoAction({
+  id: 1,
+  name: 'Learn Redux  Part II',
+  complete: true
+}));
+
+// store.dispatch({
+//   type: ADD_TODO,
+//   id: 2,
+//   name: 'Learn Redux Part III',
+//   complete: false
+// });
+
+store.dispatch(addTodoAction({
+  id: 2,
+  name: 'Learn Redux  Part III',
   complete: false
-});
+}));
+
+store.dispatch(removeTodoAction(3));
+
+store.dispatch(toogleTodoAction(0));
+
+store.dispatch(addGoalAction({
+  id: 1,
+  name: 'Go to gym',
+  done: false
+}));
+
+store.dispatch(addGoalAction({
+  id: 2,
+  name: 'Do shopping',
+  done: true
+}));
+
+store.dispatch(removeTodoAction(1));
 
 const unsubscribe = store.subscribe(() => {
   console.log('The store changed')
