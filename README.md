@@ -1,0 +1,1 @@
+This project is a quick start guide about how to learn and understand Redux
