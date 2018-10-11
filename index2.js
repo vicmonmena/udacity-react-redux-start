@@ -64,6 +64,7 @@ const REMOVE_GOAL = 'REMOVE_GOAL';
 /**
  * Action creator
  * 
+ * @param {any} todo 
  * @returns 
  */
 function addTodoAction(todo) {
@@ -76,6 +77,7 @@ function addTodoAction(todo) {
 /**
  * Action creator
  * 
+ * @param {any} id 
  * @returns 
  */
 function removeTodoAction(id) {
@@ -88,23 +90,25 @@ function removeTodoAction(id) {
 /**
  * Action creator
  * 
+ * @param {any} todo 
+ * @returns 
+ */
+function toogleGoalAction(todo) {
+  return {
+    type: TOOGLE_TODO,
+    todo,
+  }
+}
+
+ /**
+ * Action creator
+ * 
+ * @param {any} goal 
  * @returns 
  */
 function addGoalAction(goal) {
   return {
-    type: GOAL_TODO,
-    goal,
-  }
-}
-
-/**
- * Action creator
- * 
- * @returns 
- */
-function removeGoalAction() {
-  return {
-    type: GOAL_TODO,
+    type: ADD_GOAL,
     id,
   }
 }
@@ -112,11 +116,12 @@ function removeGoalAction() {
 /**
  * Action creator
  * 
+ * @param {any} id 
  * @returns 
  */
-function removeTodoAction() {
+function removeGoalAction(id) {
   return {
-    type: REMOVE_TODO,
+    type: REMOVE_GOAL,
     id,
   }
 }
