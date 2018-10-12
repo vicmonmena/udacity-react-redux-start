@@ -43,7 +43,7 @@ function createStore(reducer) {
   // 4. Update the state (dispatch function)
   const dispatch = (action) => {
     state =  reducer(state, action);
-    listeners.forEach((listener) => listeners());
+    listeners.forEach((listener) => listener());
   }
 
   return {
