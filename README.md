@@ -27,3 +27,7 @@ This project is a quick start guide about how to learn and understand Redux
 ## Action Creator
 
 ![Action Creators](./action_creators)
+
+# UI target of this project
+
+![UI target](./ui_target.jpg)
