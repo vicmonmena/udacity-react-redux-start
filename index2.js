@@ -31,8 +31,8 @@ function createStore(reducer) {
   const getState = () => state;
 
   // 3. Listen to change on the state
-  const subscribe = (listerner) => {
-    listeners.push(listerner);
+  const subscribe = (listener) => {
+    listeners.push(listener);
     return () => {
       // Devuelve todos los listener excepto el que se pasa por parámetro
       // Si ya existe entonces se produce una unsubscription
@@ -93,10 +93,10 @@ function removeTodoAction(id) {
  * @param {any} todo 
  * @returns 
  */
-function toogleGoalAction(todo) {
+function toogleTodoAction(id) {
   return {
     type: TOOGLE_TODO,
-    todo,
+    id,
   }
 }
 
@@ -109,7 +109,7 @@ function toogleGoalAction(todo) {
 function addGoalAction(goal) {
   return {
     type: ADD_GOAL,
-    id,
+    goal,
   }
 }
 
@@ -165,7 +165,7 @@ const store = createStore(rootReducer);
 // const store = createStore(todos);
 
 store.subscribe(() => {
-  console.log('The new state is: ' + store.getState())
+  console.log('The new state is: ', store.getState());
 })
 
 // store.dispatch({
