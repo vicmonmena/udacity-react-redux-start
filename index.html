@@ -201,15 +201,19 @@
      */
     function addTodo() {
       const input = document.getElementById('todo');
-      const name = input.value;
-      input.value = ''; // Reseting field after submit
-      console.log('addTodo invoked with value: ', name)
-
-      store.dispatch(addTodoAction({
-        id: generateID(),
-        complete: false,
-        // now we are not gonna use field 'done'
-      }));
+      if ((name)) {
+        const name = input.value;
+        input.value = ''; // Reseting field after submit
+        console.log('addTodo invoked with value: ', name)
+  
+        store.dispatch(addTodoAction({
+          id: generateID(),
+          complete: false,
+          // now we are not gonna use field 'done'
+        }));
+      } else {
+        alert('Please, input can not be empty');
+      }
     }
 
     /**
@@ -218,14 +222,18 @@
     function addGoal() {
       const input = document.getElementById('goal');
       const name = input.value;
-      input.value = ''; // Reseting field after submit
-      console.log('addGoal invoked with value: ', name)
-
-      store.dispatch(addGoalAction({
-        id: generateID(),
-        name,
-        // now we are not gonna use field 'done'
-      }));
+      if((name)) {
+        input.value = ''; // Reseting field after submit
+        console.log('addGoal invoked with value: ', name)
+  
+        store.dispatch(addGoalAction({
+          id: generateID(),
+          name,
+          // now we are not gonna use field 'done'
+        }));
+      } else {
+        alert('Please, input can not be empty');
+      }
     }
 
     document.getElementById('todoBtn').addEventListener('click', addTodo);
