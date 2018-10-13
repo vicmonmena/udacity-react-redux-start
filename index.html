@@ -128,14 +128,10 @@
       }
     }
 
-    function rootReducer(state = {}, action) {
-      return {
-        todos: todos(state.todos, action),
-        goals: goals(state.goals, action)
-      }
-    }
-
-    const store = Redux.createStore(rootReducer);
+    const store = Redux.createStore(Redux.combineReducers({
+      todos,
+      goals
+    }));
     // const store = createStore(todos);
 
     store.subscribe(() => {
