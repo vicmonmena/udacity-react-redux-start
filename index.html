@@ -254,7 +254,6 @@
      */
     function markTodoAsCompleted(event) {
       store.dispatch(toogleTodoAction(event.target.id));
-      document.getElementById(event.target.id).style.textDecoration = "line-through";
     }
     
     /**
@@ -268,6 +267,7 @@
       // Showing element list in DOM
       document.getElementById('todos').appendChild(node);
       node.addEventListener('click', markTodoAsCompleted);
+      node.style.textDecoration = todo.complete ? 'line-through' : 'none';
     }
 
     /**
