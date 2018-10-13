@@ -1,6 +1,11 @@
 This project is a quick start guide about how to learn and understand Redux
 
-![Predictable](./predictable)
+# UI target of this project
+This is the target UI of our project:
+![UI target](./ui_target.jpg)
+
+## Redux -> Predictable
+![Predictable](./predictable.jpg)
 
 ## Store / State tree
 
@@ -27,7 +32,3 @@ This project is a quick start guide about how to learn and understand Redux
 ## Action Creator
 
 ![Action Creators](./action_creators)
-
-# UI target of this project
-
-![UI target](./ui_target.jpg)
