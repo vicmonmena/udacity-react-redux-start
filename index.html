@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Udacity (vicmonmena) Todos Goals</title>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
 </head>
 <body>
   <div id="todosArea">
@@ -26,61 +26,8 @@
     function generateID() {
       return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
     }
-    // LIBRARY CODE
-    /**
-     
-    * 
-    * @returns 
-    */
-
-    /**
-     * A DIFERENCIA DEL FICHERO index.js aquí la función
-     * reducer la pasamos por parámetro. No tiene sentio¡do que,
-     * siendo "createStore" una librería, tenga acceso a una
-     * función (todos) fuera de su ámbito => Por esto 
-     * la pasamos por parámetro 
-     * 
-     * @param {any} reducer 
-     * @returns 
-     */
-    function createStore(reducer) {
-
-      // The store should have 4 parts:
-      // 1. The state
-      // 2. Get the state
-      // 3. Listen to change on the state
-      // 4. Update the state (dispatch function)
-
-      // 1. The state
-      let state;
-      let listeners = [];
-
-      // 2. Get the state
-      const getState = () => state;
-
-      // 3. Listen to change on the state
-      const subscribe = (listener) => {
-        listeners.push(listener);
-        return () => {
-          // Devuelve todos los listener excepto el que se pasa por parámetro
-          // Si ya existe entonces se produce una unsubscription
-          listeners = listeners.filter((l) => (l !== listener))
-        }
-      }
-
-      // 4. Update the state (dispatch function)
-      const dispatch = (action) => {
-        state =  reducer(state, action);
-        listeners.forEach((listener) => listener());
-      }
-
-      return {
-        getState,
-        subscribe,
-        dispatch
-      }
-    }
-
+    
+    // APP CODE
     const ADD_TODO = 'ADD_TODO';
     const REMOVE_TODO = 'REMOVE_TODO';
     const TOOGLE_TODO = 'TOOGLE_TODO';
@@ -154,7 +101,6 @@
       }
     }
 
-    // APP CODE
     // Esta función es un REDUCER, porque lo que hace es coger un estado en una action y reducirlo a un nuevo estado.
     // 'state = []' esto es de ES6
     // Esta función es una PURE FUNCTION
@@ -189,7 +135,7 @@
       }
     }
 
-    const store = createStore(rootReducer);
+    const store = Redux.createStore(rootReducer);
     // const store = createStore(todos);
 
     store.subscribe(() => {
