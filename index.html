@@ -185,7 +185,7 @@
     function rootReducer(state = {}, action) {
       return {
         todos: todos(state.todos, action),
-        goals: todos(state.goals, action)
+        goals: goals(state.goals, action)
       }
     }
 
@@ -194,6 +194,13 @@
 
     store.subscribe(() => {
       console.log('The new state is: ', store.getState());
+      const { todos, goals } = store.getState();
+
+      // Reseting list in order to avoid duplicate items in every state change
+      document.getElementById('todos').innerHTML = ''
+      document.getElementById('goals').innerHTML = ''
+      todos.forEach(addTodoToDOM); // addTodoToDOM(todo);
+      goals.forEach(addGoalToDOM); // addGoalToDOM(goal)
     })
 
     /**
@@ -201,16 +208,18 @@
      */
     function addTodo() {
       const input = document.getElementById('todo');
+      const name = input.value;
       if ((name)) {
-        const name = input.value;
         input.value = ''; // Reseting field after submit
         console.log('addTodo invoked with value: ', name)
-  
-        store.dispatch(addTodoAction({
+        const todo = {
           id: generateID(),
+          name,
           complete: false,
           // now we are not gonna use field 'done'
-        }));
+        };
+        store.dispatch(addTodoAction(todo));
+        
       } else {
         alert('Please, input can not be empty');
       }
@@ -225,19 +234,44 @@
       if((name)) {
         input.value = ''; // Reseting field after submit
         console.log('addGoal invoked with value: ', name)
-  
-        store.dispatch(addGoalAction({
+        const goal = {
           id: generateID(),
           name,
           // now we are not gonna use field 'done'
-        }));
+        };
+        store.dispatch(addGoalAction(goal));
+        
       } else {
         alert('Please, input can not be empty');
       }
     }
 
     document.getElementById('todoBtn').addEventListener('click', addTodo);
-    document.getElementById('goalBtn').addEventListener('click', addGoal)
+    document.getElementById('goalBtn').addEventListener('click', addGoal);
+
+    /**
+     * This function add a todo element to the list (DOM)
+     */ 
+    function addTodoToDOM(todo) {
+      const node = document.createElement('li');
+      const text = document.createTextNode(todo.name);
+      node.appendChild(text);
+      node.setAttribute('id', todo.id);
+      // Showing element list in DOM
+      document.getElementById('todos').appendChild(node);
+    }
+
+    /**
+     * This function add a goal element to the list (DOM)
+     */ 
+    function addGoalToDOM(goal) {
+      const node = document.createElement('li');
+      const text = document.createTextNode(goal.name);
+      node.appendChild(text);
+      node.setAttribute('id', goal.id);
+      // Showing element list in DOM
+      document.getElementById('goals').appendChild(node);
+    }
   </script>
 </body>
 </html>
