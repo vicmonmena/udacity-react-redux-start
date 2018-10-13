@@ -21,6 +21,11 @@
       <ul id="goals"></ul>
     </div>
   <script type="text/javascript">
+
+    // Generate a random and unique ID
+    function generateID() {
+      return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
+    }
     // LIBRARY CODE
     /**
      
@@ -191,68 +196,40 @@
       console.log('The new state is: ', store.getState());
     })
 
-    // store.dispatch({
-    //   type: ADD_TODO,
-    //   id: 0,
-    //   name: 'Learn Redux Part I',
-    //   complete: true
-    // });
+    /**
+     * Event click function for adding todo
+     */
+    function addTodo() {
+      const input = document.getElementById('todo');
+      const name = input.value;
+      input.value = ''; // Reseting field after submit
+      console.log('addTodo invoked with value: ', name)
 
-    store.dispatch(addTodoAction({
-      id: 0,
-      name: 'Learn Redux Part I',
-      complete: true
-    }));
+      store.dispatch(addTodoAction({
+        id: generateID(),
+        complete: false,
+        // now we are not gonna use field 'done'
+      }));
+    }
 
-    // store.dispatch({
-    //   type: ADD_TODO,
-    //   id: 1,
-    //   name: 'Learn Redux  Part II',
-    //   complete: true
-    // });
+    /**
+     * Event click function for adding goal
+     */
+    function addGoal() {
+      const input = document.getElementById('goal');
+      const name = input.value;
+      input.value = ''; // Reseting field after submit
+      console.log('addGoal invoked with value: ', name)
 
-    store.dispatch(addTodoAction({
-      id: 1,
-      name: 'Learn Redux  Part II',
-      complete: true
-    }));
+      store.dispatch(addGoalAction({
+        id: generateID(),
+        name,
+        // now we are not gonna use field 'done'
+      }));
+    }
 
-    // store.dispatch({
-    //   type: ADD_TODO,
-    //   id: 2,
-    //   name: 'Learn Redux Part III',
-    //   complete: false
-    // });
-
-    store.dispatch(addTodoAction({
-      id: 2,
-      name: 'Learn Redux  Part III',
-      complete: false
-    }));
-
-    store.dispatch(removeTodoAction(3));
-
-    store.dispatch(toogleTodoAction(0));
-
-    store.dispatch(addGoalAction({
-      id: 1,
-      name: 'Go to gym',
-      done: false
-    }));
-
-    store.dispatch(addGoalAction({
-      id: 2,
-      name: 'Do shopping',
-      done: true
-    }));
-
-    store.dispatch(removeTodoAction(1));
-
-    const unsubscribe = store.subscribe(() => {
-      console.log('The store changed')
-    })
-
-    unsubscribe();
+    document.getElementById('todoBtn').addEventListener('click', addTodo);
+    document.getElementById('goalBtn').addEventListener('click', addGoal)
   </script>
 </body>
 </html>
