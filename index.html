@@ -249,13 +249,23 @@
     document.getElementById('todoBtn').addEventListener('click', addTodo);
     document.getElementById('goalBtn').addEventListener('click', addGoal);
     
+    function createRemoveButton(handleOnClick) {
+      const removeBtn = document.createElement('button');
+      removeBtn.innerHTML = 'X'
+      removeBtn.addEventListener('click', handleOnClick);
+      return removeBtn;
+    }
     /**
      * This function add a todo element to the list (DOM)
      */ 
     function addTodoToDOM(todo) {
       const node = document.createElement('li');
       const text = document.createTextNode(todo.name);
+      const removeButton = createRemoveButton(() => {
+        store.dispatch(removeTodoAction(todo.id))
+      });
       node.appendChild(text);
+      node.appendChild(removeButton)
       node.setAttribute('id', todo.id);
       // Showing element list in DOM
       document.getElementById('todos').appendChild(node);
@@ -271,7 +281,11 @@
     function addGoalToDOM(goal) {
       const node = document.createElement('li');
       const text = document.createTextNode(goal.name);
+      const removeButton = createRemoveButton(() => {
+        store.dispatch(removeGoalAction(goal.id))
+      })
       node.appendChild(text);
+      node.appendChild(removeButton);
       node.setAttribute('id', goal.id);
       // Showing element list in DOM
       document.getElementById('goals').appendChild(node);
