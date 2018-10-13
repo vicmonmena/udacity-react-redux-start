@@ -250,6 +250,14 @@
     document.getElementById('goalBtn').addEventListener('click', addGoal);
 
     /**
+     * This function is invoked when list item is clicked
+     */
+    function markTodoAsCompleted(event) {
+      store.dispatch(toogleTodoAction(event.target.id));
+      document.getElementById(event.target.id).style.textDecoration = "line-through";
+    }
+    
+    /**
      * This function add a todo element to the list (DOM)
      */ 
     function addTodoToDOM(todo) {
@@ -259,6 +267,7 @@
       node.setAttribute('id', todo.id);
       // Showing element list in DOM
       document.getElementById('todos').appendChild(node);
+      node.addEventListener('click', markTodoAsCompleted);
     }
 
     /**
@@ -272,6 +281,7 @@
       // Showing element list in DOM
       document.getElementById('goals').appendChild(node);
     }
+
   </script>
 </body>
 </html>
