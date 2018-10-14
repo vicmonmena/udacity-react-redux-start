@@ -130,36 +130,8 @@
 
     /**
      * Middleware for intercept task related to bitcoins. 
-     * DEPRECATED: Use checker
+     *
      */
-    // function checkAndDispatch (store, action) {
-    //   if (action.type === ADD_TODO && action.todo.name.toLowerCase().includes('bitcoin')) {
-    //     return alert('Nope! That is a bad idea');
-    //   } 
-
-    //   if (action.type === ADD_GOAL && action.goal.name.toLowerCase().includes('bitcoin')) {
-    //     return alert('Nope! That is a bad idea');
-    //   } 
-
-    //   return store.dispatch(action);     
-    // }
-
-    // function checker(store) {
-    //   return function (next) {
-    //     return function (action) {
-    //       if (action.type === ADD_TODO && action.todo.name.toLowerCase().includes('bitcoin')) {
-    //         return alert('Nope! That is a bad idea');
-    //       } 
-
-    //       if (action.type === ADD_GOAL && action.goal.name.toLowerCase().includes('bitcoin')) {
-    //         return alert('Nope! That is a bad idea');
-    //       } 
-
-    //       return next(action); 
-    //     }
-    //   }
-    // }
-
     const checker = (store) => (next) => (action) => {
       if (action.type === ADD_TODO && action.todo.name.toLowerCase().includes('bitcoin')) {
         return alert('Nope! That is a bad idea');
@@ -172,13 +144,26 @@
       return next(action); 
     }
 
+    /**
+     * This middleware shows messages on developer console browser
+     */
+     const logger = (store) => (next) => (action) => {
+      console.group(action.type)
+        console.log('[INFO] This action is ', action);
+        const result = next(action);
+        console.log('[INFO] The new state is ', store.getState());
+      console.groupEnd();
+
+      return result; 
+    }
+
     const store = Redux.createStore(Redux.combineReducers({
       todos,
       goals
-    }), Redux.applyMiddleware(checker));
+    }), Redux.applyMiddleware(checker, logger));
 
     store.subscribe(() => {
-      console.log('The new state is: ', store.getState());
+      // console.log('The new state is: ', store.getState());
       const { todos, goals } = store.getState();
 
       // Reseting list in order to avoid duplicate items in every state change
@@ -196,7 +181,7 @@
       const name = input.value;
       if ((name)) {
         input.value = ''; // Reseting field after submit
-        console.log('addTodo invoked with value: ', name)
+        // console.log('addTodo invoked with value: ', name)
         const todo = {
           id: generateID(),
           name,
@@ -218,7 +203,7 @@
       const name = input.value;
       if((name)) {
         input.value = ''; // Reseting field after submit
-        console.log('addGoal invoked with value: ', name)
+        // console.log('addGoal invoked with value: ', name)
         const goal = {
           id: generateID(),
           name,
