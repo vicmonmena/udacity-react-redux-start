@@ -130,24 +130,40 @@
 
     /**
      * Middleware for intercept task related to bitcoins. 
+     * DEPRECATED: Use checker
      */
-    function checkAndDispatch (store, action) {
-      if (action.type === ADD_TODO && action.todo.name.toLowerCase().includes('bitcoin')) {
-        return alert('Nope! That is a bad idea');
-      } 
+    // function checkAndDispatch (store, action) {
+    //   if (action.type === ADD_TODO && action.todo.name.toLowerCase().includes('bitcoin')) {
+    //     return alert('Nope! That is a bad idea');
+    //   } 
 
-      if (action.type === ADD_GOAL && action.goal.name.toLowerCase().includes('bitcoin')) {
-        return alert('Nope! That is a bad idea');
-      } 
+    //   if (action.type === ADD_GOAL && action.goal.name.toLowerCase().includes('bitcoin')) {
+    //     return alert('Nope! That is a bad idea');
+    //   } 
 
-      return store.dispatch(action);     
+    //   return store.dispatch(action);     
+    // }
+
+    function checker(store) {
+      return function (next) {
+        return function (action) {
+          if (action.type === ADD_TODO && action.todo.name.toLowerCase().includes('bitcoin')) {
+            return alert('Nope! That is a bad idea');
+          } 
+
+          if (action.type === ADD_GOAL && action.goal.name.toLowerCase().includes('bitcoin')) {
+            return alert('Nope! That is a bad idea');
+          } 
+
+          return next(action); 
+        }
+      }
     }
 
     const store = Redux.createStore(Redux.combineReducers({
       todos,
       goals
-    }));
-    // const store = createStore(todos);
+    }), Redux.applyMiddleware(checker));
 
     store.subscribe(() => {
       console.log('The new state is: ', store.getState());
@@ -175,7 +191,7 @@
           complete: false,
           // now we are not gonna use field 'done'
         };
-        checkAndDispatch(store, addTodoAction(todo));
+        store.dispatch(addTodoAction(todo));
         
       } else {
         alert('Please, input can not be empty');
@@ -196,7 +212,7 @@
           name,
           // now we are not gonna use field 'done'
         };
-        checkAndDispatch(store, addGoalAction(goal));
+        store.dispatch(addGoalAction(goal));
         
       } else {
         alert('Please, input can not be empty');
@@ -219,7 +235,7 @@
       const node = document.createElement('li');
       const text = document.createTextNode(todo.name);
       const removeButton = createRemoveButton(() => {
-        checkAndDispatch(store, removeTodoAction(todo.id))
+        store.dispatch(removeTodoAction(todo.id))
       });
       node.appendChild(text);
       node.appendChild(removeButton)
@@ -227,7 +243,7 @@
       // Showing element list in DOM
       document.getElementById('todos').appendChild(node);
       node.addEventListener('click', () => {
-        checkAndDispatch(store, toogleTodoAction(todo.id));
+        store.dispatch(toogleTodoAction(todo.id));
       });
       node.style.textDecoration = todo.complete ? 'line-through' : 'none';
     }
@@ -239,7 +255,7 @@
       const node = document.createElement('li');
       const text = document.createTextNode(goal.name);
       const removeButton = createRemoveButton(() => {
-        checkAndDispatch(store, removeGoalAction(goal.id))
+        store.dispatch(removeGoalAction(goal.id))
       })
       node.appendChild(text);
       node.appendChild(removeButton);
