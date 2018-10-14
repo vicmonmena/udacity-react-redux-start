@@ -8,7 +8,7 @@ This is the target UI of our project:
 
 ## 2nd: Deny task related to 'bitcoin'
 
-Identificate when any of the text inputed in the field containers word 'bitcoin' and show a message. 
+Identificates when any of the text inputed in the field contains the word 'bitcoin', does not registers it and shows a message. 
 Don't let add anything with the word 'bitcoin'.
 
 ## Redux -> Predictable
@@ -26,7 +26,7 @@ Don't let add anything with the word 'bitcoin'.
 
 ## Action
 
-![Actions](./actions)
+![Actions](./actions.jpg)
 
 ## Reducer
 
@@ -38,4 +38,10 @@ Don't let add anything with the word 'bitcoin'.
 
 ## Action Creator
 
-![Action Creators](./action_creators)
+![Action Creators](./action_creators.jpg)
+
+## Middleare (Redux)
+
+The Redux docs describe [middleware](https://redux.js.org/advanced/middleware) as:
+
+![Middleware Redux](./middleware-redux.jpg)
