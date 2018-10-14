@@ -6,10 +6,23 @@ This project is a quick start guide about how to learn and understand Redux
 This is the target UI of our project:
 ![UI target](./ui_target.jpg)
 
-## 2nd: Deny task related to 'bitcoin'
+## These are the main functionalities:
+![Functionalities](./project-functionalities.jpg)
+
+1. Add task to list (todo or goal)
+1. Mark task as completed (onlye todo)
+1. Delete task from list (todo or goal)
+
+## 2nd: Deny task related to 'bitcoin' (checker middleware)
 
 Identificates when any of the text inputed in the field contains the word 'bitcoin', does not registers it and shows a message. 
 Don't let add anything with the word 'bitcoin'.
+
+![Checker Middleware](./checker-middleware.jpg)
+
+## 3rd: Generate console logs per action type (Logger middleware)
+
+![Logger Middleware](./logger-middleware.jpg)
 
 ## Redux -> Predictable
 ![Predictable](./predictable.jpg)
