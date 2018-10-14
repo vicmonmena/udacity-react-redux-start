@@ -45,3 +45,7 @@ Don't let add anything with the word 'bitcoin'.
 The Redux docs describe [middleware](https://redux.js.org/advanced/middleware) as:
 
 ![Middleware Redux](./middleware-redux.jpg)
+
+### Operations that a middleware can do before passing the action along to the reducer:
+
+![Middleware Redux Operations](./middleware-redux-actions.jpg)
