@@ -4,10 +4,10 @@ This project is a quick start guide about how to learn and understand Redux
 
 ## 1st: UI target of this project
 This is the target UI of our project:
-![UI target](./ui_target.jpg)
+![UI target](./docs/ui_target.jpg)
 
 ## These are the main functionalities:
-![Functionalities](./project-functionalities.jpg)
+![Functionalities](./docs/project-functionalities.jpg)
 
 1. Add task to list (todo or goal)
 1. Mark task as completed (onlye todo)
@@ -18,14 +18,14 @@ This is the target UI of our project:
 Identificates when any of the text inputed in the field contains the word 'bitcoin', does not registers it and shows a message. 
 Don't let add anything with the word 'bitcoin'.
 
-![Checker Middleware](./checker-middleware.jpg)
+![Checker Middleware](./docs/checker-middleware.jpg)
 
 ## 3rd: Generate console logs per action type (Logger middleware)
 
-![Logger Middleware](./logger-middleware.jpg)
+![Logger Middleware](./docs/logger-middleware.jpg)
 
 ## Redux -> Predictable
-![Predictable](./predictable.jpg)
+![Predictable](./docs/predictable.jpg)
 
 ## Store / State tree
 
@@ -35,11 +35,11 @@ Don't let add anything with the word 'bitcoin'.
 1. Listen to change on the state
 1. Update the state (dispatch function)
 
-![4 parts of Store](./store_4_parts.jpg)
+![4 parts of Store](./docs/store_4_parts.jpg)
 
 ## Action
 
-![Actions](./actions.jpg)
+![Actions](./docs/actions.jpg)
 
 ## Reducer
 
@@ -47,25 +47,25 @@ Don't let add anything with the word 'bitcoin'.
 
 *Take an state end reduce it to a new brand state*
 
-![Pure Functions](./pure_function_definition.jpg)
+![Pure Functions](./docs/pure_function_definition.jpg)
 
 ## Action Creator
 
-![Action Creators](./action_creators.jpg)
+![Action Creators](./docs/action_creators.jpg)
 
 ## Middleare (Redux)
 
 The Redux docs describe [middleware](https://redux.js.org/advanced/middleware) as:
 
-![Middleware Redux](./middleware-redux.jpg)
+![Middleware Redux](./docs/middleware-redux.jpg)
 
 ### Redux middleware properties
 
-![Redux Middleware Properties](./redux-middleware-properties.jpg)
+![Redux Middleware Properties](./docs/redux-middleware-properties.jpg)
 
 ### Operations that a middleware can do before passing the action along to the reducer:
 
-![Middleware Redux Operations](./middleware-redux-actions.jpg)
+![Middleware Redux Operations](./docs/middleware-redux-actions.jpg)
 
 ### How to use Redux middlewares:
 
@@ -73,8 +73,8 @@ The Redux docs describe [middleware](https://redux.js.org/advanced/middleware) a
 const store = Redux.createStore( <reducer-function>, <middleware-functions> )
 ```
 
-![Redux Middlewares](./redux-middlewares.jpg)
+![Redux Middlewares](./docs/redux-middlewares.jpg)
 
 ## [Hight-Order Functions](https://www.udacity.com/course/object-oriented-javascript--ud711)
 
-![Hight-Order Functions](./hight-order-functions.jpg)
+![Hight-Order Functions](./docs/hight-order-functions.jpg)
