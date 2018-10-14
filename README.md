@@ -49,3 +49,15 @@ The Redux docs describe [middleware](https://redux.js.org/advanced/middleware) a
 ### Operations that a middleware can do before passing the action along to the reducer:
 
 ![Middleware Redux Operations](./middleware-redux-actions.jpg)
+
+### How to use Redux middlewares:
+
+```js
+const store = Redux.createStore( <reducer-function>, <middleware-functions> )
+```
+
+![Redux Middlewares](./redux-middlewares.jpg)
+
+## [Hight-Order Functions](https://www.udacity.com/course/object-oriented-javascript--ud711)
+
+![Hight-Order Functions](./hight-order-functions.jpg)
