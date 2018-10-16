@@ -332,11 +332,20 @@
     }
 
     class App extends React.Component {
+
+      componentDidMount() {
+        const { store } = this.props;
+        // forceUpdate: re-render of that specific component
+        store.subscribe(() => this.forceUpdate())
+      }
+
       render() {
+        const { store } = this.props;
+        const { todos, goals } = store.getState();
         return(
           <div>
-            <Todos store={this.props.store} />
-            <Goals store={this.props.store} />
+            <Todos todos={todos} store={store} />
+            <Goals goals={goals} store={store} />
           </div>
         )
       }

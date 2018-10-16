@@ -84,3 +84,16 @@ const store = Redux.createStore( <reducer-function>, <middleware-functions> )
 ![REF from react](./docs/react-ref.jpg)
 
 React will call the ref callback with the DOM element when the component mounts, and call it with null when it unmounts. Refs are guaranteed to be up-to-date before `componentDidMount` or `componentDidUpdate` fires.
+
+# Note abput methos
+
+## componentDidMount
+
+[componentDidMount()](https://reactjs.org/docs/react-component.html#componentdidmount) is invoked immediately after a component is mounted (inserted into the tree)...If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
+
+## forceUpdate
+
+By default, when your component’s state or props change, your component will re-render. If your render() method depends on some other data, you can tell React that the component needs re-rendering by calling [forceUpdate()](https://reactjs.org/docs/react-component.html#forceupdate).
+
+Calling [forceUpdate()](https://reactjs.org/docs/react-component.html#forceupdate) will cause render() to be called on the component, skipping shouldComponentUpdate(). This will trigger the normal lifecycle methods for child components, including the shouldComponentUpdate() method of each child. React will still only update the DOM if the markup changes.
+
