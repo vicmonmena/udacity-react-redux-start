@@ -82,3 +82,5 @@ const store = Redux.createStore( <reducer-function>, <middleware-functions> )
 # [REF](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs)
 
 ![REF from react](./docs/react-ref.jpg)
+
+React will call the ref callback with the DOM element when the component mounts, and call it with null when it unmounts. Refs are guaranteed to be up-to-date before `componentDidMount` or `componentDidUpdate` fires.
