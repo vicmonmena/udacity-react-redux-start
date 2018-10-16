@@ -281,14 +281,13 @@
         const todo = {
           id: generateID(),
           name,
-          complete: false,
-          // now we are not gonna use field 'done'
+          complete: false
         };
         this.props.store.dispatch(addTodoAction(todo));
       }
 
       render() {
-        return(
+        return (
           <div>
             <h1>Todo List</h1>
             <input 
@@ -304,10 +303,28 @@
     }
 
     class Goals extends React.Component {
+      
+      addItem = (event) => {
+        event.preventDefault();
+        const name = this.input.value;
+        this.input.value = '';
+        const goal = {
+          id: generateID(),
+          name
+        };
+        this.props.store.dispatch(addGoalAction(goal));
+      }
+
       render() {
-        return(
+        return (
           <div>
-            GOALS
+            <h1>Goal List</h1>
+            <input 
+              type="input"
+              placeholder="Add Goal"
+              ref={(input) => this.input = input}
+            />
+            <button onClick={this.addItem}>Add goal</button>
             <List />
           </div>
         )
