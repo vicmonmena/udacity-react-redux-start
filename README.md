@@ -78,3 +78,7 @@ const store = Redux.createStore( <reducer-function>, <middleware-functions> )
 ## [Hight-Order Functions](https://www.udacity.com/course/object-oriented-javascript--ud711)
 
 ![Hight-Order Functions](./docs/hight-order-functions.jpg)
+
+# [REF](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs)
+
+![REF from react](./docs/react-ref.jpg)
