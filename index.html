@@ -267,7 +267,14 @@
     function List(props) {
       return(
         <ul>
-          <li>LIST</li>
+          {props.items.map(item => (
+            <li key={item.id}>
+              {item.name}
+              <button onClick={() => props.remove(item)}>
+              X
+              </button>
+            </li>
+          ))}
         </ul>
       )
     }
@@ -286,6 +293,10 @@
         this.props.store.dispatch(addTodoAction(todo));
       }
 
+      removeItem = (todo) => {
+        this.props.store.dispatch(removeTodoAction(todo.id));
+      }
+
       render() {
         return (
           <div>
@@ -296,7 +307,7 @@
               ref={(input) => this.input = input}
             />
             <button onClick={this.addItem}>Add todo</button>
-            <List />
+            <List remove={this.removeItem} items={this.props.todos}/>
           </div>
         )
       }
@@ -315,6 +326,10 @@
         this.props.store.dispatch(addGoalAction(goal));
       }
 
+      removeItem = (goal) => {
+        this.props.store.dispatch(removeGoalAction(goal.id));
+      }
+
       render() {
         return (
           <div>
@@ -325,7 +340,7 @@
               ref={(input) => this.input = input}
             />
             <button onClick={this.addItem}>Add goal</button>
-            <List />
+            <List remove={this.removeItem} items={this.props.goals} />
           </div>
         )
       }
