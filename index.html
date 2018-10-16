@@ -274,7 +274,7 @@
     
     class Todos extends React.Component {
 
-      addItem => (event) {
+      addItem = (event) => {
         event.preventDefault();
         const name = this.input.value;
         this.input.value = '';
