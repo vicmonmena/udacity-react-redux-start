@@ -376,6 +376,10 @@
 
       removeItem = (goal) => {
         this.props.store.dispatch(removeGoalAction(goal.id));
+        return API.deleteGoal(goal.id).catch((err) => {
+          this.props.store.dispatch(addGoalAction(goal));
+          alert('An error occurred. Please, try again')
+        });
       }
 
       render() {
