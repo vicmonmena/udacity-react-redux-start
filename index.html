@@ -192,13 +192,6 @@
       return result; 
     }
 
-    const customThunk = (store) => (next) => (action) => {
-      if (typeof action === 'function') {
-        return action(store.dispatch);
-      }
-      return next(action);
-    }
-
     /* ************************************************** */
           /* **************** STORE ************* */
     /* ************************************************** */
@@ -206,7 +199,7 @@
       todos,
       goals,
       loading
-    }), Redux.applyMiddleware(customThunk, checker, logger));
+    }), Redux.applyMiddleware(ReduxThunk.default, checker, logger));
     /* ************************************************** */
 
     /**
