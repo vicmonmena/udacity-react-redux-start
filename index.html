@@ -175,17 +175,6 @@
       loading
     }), Redux.applyMiddleware(checker, logger));
 
-    store.subscribe(() => {
-      // console.log('The new state is: ', store.getState());
-      const { todos, goals } = store.getState();
-
-      // Reseting list in order to avoid duplicate items in every state change
-      document.getElementById('todos').innerHTML = ''
-      document.getElementById('goals').innerHTML = ''
-      todos.forEach(addTodoToDOM); // addTodoToDOM(todo);
-      goals.forEach(addGoalToDOM); // addGoalToDOM(goal)
-    })
-
     /**
      * Event click function for adding todo
      */
@@ -228,9 +217,6 @@
         alert('Please, input can not be empty');
       }
     }
-
-    document.getElementById('todoBtn').addEventListener('click', addTodo);
-    document.getElementById('goalBtn').addEventListener('click', addGoal);
     
     function createRemoveButton(handleOnClick) {
       const removeBtn = document.createElement('button');
@@ -277,7 +263,7 @@
   <script type="text/babel">
     function List(props) {
       return(
-        <ul>
+        <ul id={props.id}>
           {props.items.map(item => (
             <li key={item.id}>
               <span 
@@ -341,6 +327,7 @@
                 />
                 <button onClick={this.addItem}>Add todo</button>
                 <List 
+                  id='todos'
                   toogle={this.toogleItem}
                   remove={this.removeItem} 
                   items={this.props.todos}
@@ -391,6 +378,7 @@
                 />
                 <button onClick={this.addItem}>Add goal</button>
                 <List 
+                  id='goals'
                   remove={this.removeItem} 
                   items={this.props.goals} 
                 />
