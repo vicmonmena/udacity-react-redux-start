@@ -36,6 +36,7 @@
     const TOOGLE_TODO = 'TOOGLE_TODO';
     const ADD_GOAL = 'ADD_GOAL';
     const REMOVE_GOAL = 'REMOVE_GOAL';
+    const RECEIVE_DATA = 'RECEIVE_DATA';
 
     // Action CREATORS
 
@@ -104,6 +105,14 @@
       }
     }
 
+    function receiveDataAction(todos, goals) {
+      return {
+        type: RECEIVE_DATA,
+        todos,
+        goals
+      }
+    }
+
     // Esta función es un REDUCER, porque lo que hace es coger un estado en una action y reducirlo a un nuevo estado.
     // 'state = []' esto es de ES6
     // Esta función es una PURE FUNCTION
@@ -116,6 +125,8 @@
         case TOOGLE_TODO:
           return state.map((todo) => todo.id !== action.id ? todo : 
             Object.assign({}, todo, { complete: !todo.complete }));
+        case RECEIVE_DATA:
+          return action.todos;
         default: return state;
       }
     }
@@ -127,6 +138,8 @@
           return state.concat([action.goal]); // brand new state  
         case REMOVE_GOAL:
           return state.filter((goal) => goal.id !== action.id);
+        case RECEIVE_DATA:
+          return action.goals;
         default: return state;
       }
     }
@@ -369,8 +382,9 @@
         store.subscribe(() => this.forceUpdate())
 
         Promise.all([API.fetchTodos(), API.fetchGoals()]).then(([todos, goals]) => {
-          todos.map((todo, index) => (console.log(`todo - ${index+1}: `, todo)));
-          goals.map((goal, index) => (console.log(`goal - ${index+1}: `, goal)));
+          // todos.map((todo, index) => (console.log(`todo - ${index+1}: `, todo)));
+          // goals.map((goal, index) => (console.log(`goal - ${index+1}: `, goal)));
+          this.props.store.dispatch(receiveDataAction(todos, goals));
         })
       }
 
