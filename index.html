@@ -368,13 +368,10 @@
         // forceUpdate: re-render of that specific component
         store.subscribe(() => this.forceUpdate())
 
-        API.fetchTodos().then((todos) => {
-          todos.map((todo, index) => (console.log(`todo - ${index+1}: `, todo)))
-        });
-
-        API.fetchGoals().then((goals) => {
-          goals.map((goal, index) => (console.log(`goal - ${index+1}: `, goal)))
-        });
+        Promise.all([API.fetchTodos(), API.fetchGoals()]).then(([todos, goals]) => {
+          todos.map((todo, index) => (console.log(`todo - ${index+1}: `, todo)));
+          goals.map((goal, index) => (console.log(`goal - ${index+1}: `, goal)));
+        })
       }
 
       render() {
