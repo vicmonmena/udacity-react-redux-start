@@ -123,6 +123,40 @@
       }
     }
 
+    /**
+     * Action creator wich returns a function
+     * 
+     * @param {any} goalName
+     * @param {any} cb
+     * @returns a function
+     */ 
+    function handleAddGoal(goalName, cb) {
+      return (dispatch) => {
+        return API.saveGoal(goalName).then((goal) => {
+          dispatch(addGoalAction(goal));
+          cb(); // calbback for UI modifications or other independant actions from this logic
+        }).catch((err) =>{
+          alert('An error occurred adding goal item. Please, try again');
+        });
+      }
+    }
+
+    /**
+     * Action creator wich returns a function
+     * 
+     * @param {any} todo
+     * @returns a function
+     */ 
+     function handleDeleteGoal(goal) {
+      return (dispatch) => {
+        dispatch(removeGoalAction(goal.id));
+        return API.deleteGoal(goal.id).catch((err) => {
+          dispatch(addGoalAction(goal));
+          alert('An error occurred removing goal item. Please, try again')
+        });
+      }
+    }
+
     // Esta función es un REDUCER, porque lo que hace es coger un estado en una action y reducirlo a un nuevo estado.
     // 'state = []' esto es de ES6
     // Esta función es una PURE FUNCTION
@@ -364,20 +398,11 @@
       
       addItem = (event) => {
         event.preventDefault();
-        return API.saveGoal(this.input.value).then((goal) => {
-          this.props.store.dispatch(addGoalAction(goal));
-          this.input.value = '';
-        }).catch((err) =>{
-          alert('An error occurred adding goal item. Please, try again');
-        });
+        this.props.store.dispatch(handleAddGoal(this.input.value, () => {this.input.value = '';}));
       }
 
       removeItem = (goal) => {
-        this.props.store.dispatch(removeGoalAction(goal.id));
-        return API.deleteGoal(goal.id).catch((err) => {
-          this.props.store.dispatch(addGoalAction(goal));
-          alert('An error occurred removing goal item. Please, try again')
-        });
+        this.props.store.dispatch(handleDeleteGoal(goal));
       }
 
       render() {
