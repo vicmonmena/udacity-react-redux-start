@@ -284,14 +284,12 @@
 
       addItem = (event) => {
         event.preventDefault();
-        const name = this.input.value;
-        this.input.value = '';
-        const todo = {
-          id: generateID(),
-          name,
-          complete: false
-        };
-        this.props.store.dispatch(addTodoAction(todo));
+        return API.saveTodo(this.input.value).then((todo) => {
+          this.props.store.dispatch(addTodoAction(todo));
+          this.input.value = '';
+        }).catch((err) =>{
+          alert('An error occurred adding todo item. Please, try again');
+        });
       }
 
       removeItem = (todo) => {
@@ -304,7 +302,7 @@
 
       toogleItem = (todo) => {
         this.props.store.dispatch(toogleTodoAction(todo.id));
-        return API.saveTodoToogle(todo.id).catch(() => {
+        return API.saveTodoToggle(todo.id).catch(() => {
           this.props.store.dispatch(toogleTodoAction(todo.id));
           alert('An error occurred toogling todo item. Please, try again')
         })
@@ -343,13 +341,12 @@
       
       addItem = (event) => {
         event.preventDefault();
-        const name = this.input.value;
-        this.input.value = '';
-        const goal = {
-          id: generateID(),
-          name
-        };
-        this.props.store.dispatch(addGoalAction(goal));
+        return API.saveGoal(this.input.value).then((goal) => {
+          this.props.store.dispatch(addGoalAction(goal));
+          this.input.value = '';
+        }).catch((err) =>{
+          alert('An error occurred adding goal item. Please, try again');
+        });
       }
 
       removeItem = (goal) => {
