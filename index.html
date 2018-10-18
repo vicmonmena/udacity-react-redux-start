@@ -144,6 +144,15 @@
       }
     }
 
+    // 3RD REDUCER
+    function loading(state = true, action) {
+      switch (action.type) {
+        case RECEIVE_DATA:
+          return false;
+        default: return state;
+      }
+    }
+
     /**
      * Middleware for intercept task related to bitcoins. 
      *
@@ -175,7 +184,8 @@
 
     const store = Redux.createStore(Redux.combineReducers({
       todos,
-      goals
+      goals,
+      loading
     }), Redux.applyMiddleware(checker, logger));
 
     store.subscribe(() => {
@@ -322,17 +332,26 @@
         return (
           <div>
             <h1>Todo List</h1>
-            <input 
-              type="input"
-              placeholder="Add Todo"
-              ref={(input) => this.input = input}
-            />
-            <button onClick={this.addItem}>Add todo</button>
-            <List 
-              toogle={this.toogleItem}
-              remove={this.removeItem} 
-              items={this.props.todos}
-            />
+            {
+              this.props.loading &&
+              <h3>Loading goals ...</h3>
+            }
+            {
+              !this.props.loading &&
+              <div>
+                <input 
+                  type="input"
+                  placeholder="Add Todo"
+                  ref={(input) => this.input = input}
+                />
+                <button onClick={this.addItem}>Add todo</button>
+                <List 
+                  toogle={this.toogleItem}
+                  remove={this.removeItem} 
+                  items={this.props.todos}
+                />
+              </div>
+            }
           </div>
         )
       }
@@ -359,16 +378,25 @@
         return (
           <div>
             <h1>Goal List</h1>
-            <input 
-              type="input"
-              placeholder="Add Goal"
-              ref={(input) => this.input = input}
-            />
-            <button onClick={this.addItem}>Add goal</button>
-            <List 
-              remove={this.removeItem} 
-              items={this.props.goals} 
-            />
+            {
+              this.props.loading &&
+              <h3>Loading goals ...</h3>
+            }
+            {
+              !this.props.loading &&
+              <div>
+                <input 
+                  type="input"
+                  placeholder="Add Goal"
+                  ref={(input) => this.input = input}
+                />
+                <button onClick={this.addItem}>Add goal</button>
+                <List 
+                  remove={this.removeItem} 
+                  items={this.props.goals} 
+                />
+              </div>
+            }
           </div>
         )
       }
@@ -390,11 +418,11 @@
 
       render() {
         const { store } = this.props;
-        const { todos, goals } = store.getState();
+        const { todos, goals, loading } = store.getState();
         return(
           <div>
-            <Todos todos={todos} store={store} />
-            <Goals goals={goals} store={store} />
+            <Todos loading={loading} todos={todos} store={store} />
+            <Goals loading={loading} goals={goals} store={store} />
           </div>
         )
       }
