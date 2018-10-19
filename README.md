@@ -108,3 +108,17 @@ Without thunks, synchronous dispatches are the default. We could still make API 
 ## Thunk flow
 
 ![Thunk flow](./docs/thunk-flow.jpg)
+
+## React Context
+
+[Context](https://reactjs.org/docs/context.html#reactcreatecontext) provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+`See this project example`: [React Context](https://github.com/vicmonmena/udacity-react-redux-context)
+
+## [Container/Connected component `VS` Presentational Component]https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+
+### Container/Connected component
+A connected component is connected to the Redux store and is responsible for getting data from the store.
+
+### Presentational Component
+A presentational component should not access the store. It should receive any information it needs as props and then just render a UI.
