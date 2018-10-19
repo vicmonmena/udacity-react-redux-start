@@ -110,6 +110,19 @@
     /**
      * Action creator wich returns a function
      * 
+     * @returns a function
+     */ 
+    function handleInitialData() {
+      return (dispatch) => {
+        Promise.all([API.fetchTodos(), API.fetchGoals()])
+          .then(([todos, goals]) => {
+            dispatch(receiveDataAction(todos, goals));
+          });
+      }
+    }
+    /**
+     * Action creator wich returns a function
+     * 
      * @param {any} todo
      * @returns a function
      */ 
@@ -467,14 +480,10 @@
 
       componentDidMount() {
         const { store } = this.props;
+        // Initialing data from action creator thunk
+        store.dispatch(handleInitialData());
         // forceUpdate: re-render of that specific component
         store.subscribe(() => this.forceUpdate())
-
-        Promise.all([API.fetchTodos(), API.fetchGoals()]).then(([todos, goals]) => {
-          // todos.map((todo, index) => (console.log(`todo - ${index+1}: `, todo)));
-          // goals.map((goal, index) => (console.log(`goal - ${index+1}: `, goal)));
-          this.props.store.dispatch(receiveDataAction(todos, goals));
-        })
       }
 
       render() {
