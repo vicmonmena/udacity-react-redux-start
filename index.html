@@ -410,27 +410,18 @@
         return (
           <div>
             <h1>Todo List</h1>
-            {
-              this.props.loading &&
-              <h3>Loading goals ...</h3>
-            }
-            {
-              !this.props.loading &&
-              <div>
-                <input 
-                  type="input"
-                  placeholder="Add Todo"
-                  ref={(input) => this.input = input}
-                />
-                <button onClick={this.addItem}>Add todo</button>
-                <List 
-                  id='todos'
-                  toogle={this.toogleItem}
-                  remove={this.removeItem} 
-                  items={this.props.todos}
-                />
-              </div>
-            }
+            <input 
+              type="input"
+              placeholder="Add Todo"
+              ref={(input) => this.input = input}
+            />
+            <button onClick={this.addItem}>Add todo</button>
+            <List 
+              id='todos'
+              toogle={this.toogleItem}
+              remove={this.removeItem} 
+              items={this.props.todos}
+            />
           </div>
         )
       }
@@ -441,8 +432,8 @@
         return(
           <Context.Consumer>
             {(store) => {
-              const { todos, loading } = store.getState();
-              return <Todos loading={loading} todos={todos} dispatch={store.dispatch} />
+              const { todos } = store.getState();
+              return <Todos todos={todos} dispatch={store.dispatch} />
             }}
           </Context.Consumer>
         )
@@ -463,27 +454,18 @@
       render() {
         return (
           <div>
-            <h1>Goal List</h1>
-            {
-              this.props.loading &&
-              <h3>Loading goals ...</h3>
-            }
-            {
-              !this.props.loading &&
-              <div>
-                <input 
-                  type="input"
-                  placeholder="Add Goal"
-                  ref={(input) => this.input = input}
-                />
-                <button onClick={this.addItem}>Add goal</button>
-                <List 
-                  id='goals'
-                  remove={this.removeItem} 
-                  items={this.props.goals} 
-                />
-              </div>
-            }
+            <h1>Goal List</h1>  
+            <input 
+              type="input"
+              placeholder="Add Goal"
+              ref={(input) => this.input = input}
+            />
+            <button onClick={this.addItem}>Add goal</button>
+            <List 
+              id='goals'
+              remove={this.removeItem} 
+              items={this.props.goals} 
+            />
           </div>
         )
       }
@@ -494,8 +476,8 @@
         return(
           <Context.Consumer>
             {(store) => {
-              const { goals, loading } = store.getState();
-              return <Goals loading={loading} goals={goals} dispatch={store.dispatch} />
+              const { goals } = store.getState();
+              return <Goals goals={goals} dispatch={store.dispatch} />
             }}
           </Context.Consumer>
         )
@@ -506,6 +488,7 @@
 
       componentDidMount() {
         const { store } = this.props;
+        
         // Initialing data from action creator thunk
         store.dispatch(handleInitialData());
         // forceUpdate: re-render of that specific component
@@ -513,6 +496,12 @@
       }
 
       render() {
+        const { loading } = store.getState();
+        if (loading) {
+          return (
+            <h3>Loading data ...</h3>
+          )
+        } 
         return(
           <div>
             <ConnectedTodos />
@@ -533,7 +522,7 @@
         )
       }
     }
-
+  
     const Context = React.createContext();
 
     class Provider extends React.Component {
