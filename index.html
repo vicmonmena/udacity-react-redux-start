@@ -426,19 +426,10 @@
         )
       }
     }
-
-    class ConnectedTodos extends React.Component {
-      render() {
-        return(
-          <Context.Consumer>
-            {(store) => {
-              const { todos } = store.getState();
-              return <Todos todos={todos} dispatch={store.dispatch} />
-            }}
-          </Context.Consumer>
-        )
-      }
-    }
+    
+    const ConnectTodos = ((state) => {
+      todos: state.todos
+    })(Todos);
 
     class Goals extends React.Component {
       
@@ -471,33 +462,22 @@
       }
     }
     
-    class ConnectedGoals extends React.Component {
-      render() {
-        return(
-          <Context.Consumer>
-            {(store) => {
-              const { goals } = store.getState();
-              return <Goals goals={goals} dispatch={store.dispatch} />
-            }}
-          </Context.Consumer>
-        )
-      }
-    }
+    const ConnectGoals = ((state) => {
+      goals: state.goals
+    })(Goals);
 
     class App extends React.Component {
 
       componentDidMount() {
-        const { store } = this.props;
-        
+        const { dispatch } = this.props; // --> NOW WE PASS IT DIRECTLY INSTEAD THE WHOLE "Store"
         // Initialing data from action creator thunk
-        store.dispatch(handleInitialData());
+        dispatch(handleInitialData());
         // forceUpdate: re-render of that specific component
-        store.subscribe(() => this.forceUpdate())
+        // subscribe(() => this.forceUpdate()) --> NOW THIS HAPPENS INSIDE "connect" FUNCTION
       }
 
       render() {
-        const { loading } = store.getState();
-        if (loading) {
+        if (this.props.loading) { // --> NOW loading IS PASSED AS A PROP FROM "connect" FUNCTION
           return (
             <h3>Loading data ...</h3>
           )
@@ -510,18 +490,11 @@
         )
       }
     }
-
-    class ConnectedApp extends React.Component {
-      render() {
-        return (
-          <Context.Consumer>
-            {(store) => (
-              <App store={store} />
-            )}
-          </Context.Consumer>
-        )
-      }
-    }
+    
+    // This pass the 
+    const ConnectApp = connect((state) => {
+      loading: state.loading
+    })(App);
   
     const Context = React.createContext();
 
