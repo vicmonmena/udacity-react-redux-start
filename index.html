@@ -427,9 +427,9 @@
       }
     }
     
-    const ConnectedTodos = ((state) => {
+    const ConnectedTodos = connect((state) => ({
       todos: state.todos
-    })(Todos);
+    }))(Todos);
 
     class Goals extends React.Component {
       
@@ -462,13 +462,13 @@
       }
     }
     
-    const ConnectedGoals = ((state) => {
+    const ConnectedGoals = connect((state) => ({
       goals: state.goals
-    })(Goals);
+    }))(Goals);
 
     class App extends React.Component {
       componentDidMount () {
-        const { dispatch } = this.props
+        const { dispatch } = this.props;
         dispatch(handleInitialData())
       }
       render() {
@@ -521,7 +521,7 @@
             // Get the store from Context
             return (
               <Context.Consumer>
-              {(store) => <Receiver store={store}/>}
+                {(store) => <Receiver store={store}/>}
               </Context.Consumer>
             )
           }
