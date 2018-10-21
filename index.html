@@ -427,7 +427,7 @@
       }
     }
     
-    const ConnectTodos = ((state) => {
+    const ConnectedTodos = ((state) => {
       todos: state.todos
     })(Todos);
 
@@ -462,27 +462,20 @@
       }
     }
     
-    const ConnectGoals = ((state) => {
+    const ConnectedGoals = ((state) => {
       goals: state.goals
     })(Goals);
 
     class App extends React.Component {
-
-      componentDidMount() {
-        const { dispatch } = this.props; // --> NOW WE PASS IT DIRECTLY INSTEAD THE WHOLE "Store"
-        // Initialing data from action creator thunk
-        dispatch(handleInitialData());
-        // forceUpdate: re-render of that specific component
-        // subscribe(() => this.forceUpdate()) --> NOW THIS HAPPENS INSIDE "connect" FUNCTION
+      componentDidMount () {
+        const { dispatch } = this.props
+        dispatch(handleInitialData())
       }
-
       render() {
-        if (this.props.loading) { // --> NOW loading IS PASSED AS A PROP FROM "connect" FUNCTION
-          return (
-            <h3>Loading data ...</h3>
-          )
-        } 
-        return(
+        if (this.props.loading === true) {
+          return <h3>Loading</h3>
+        }
+        return (
           <div>
             <ConnectedTodos />
             <ConnectedGoals />
@@ -491,12 +484,52 @@
       }
     }
     
-    // This pass the 
-    const ConnectApp = connect((state) => {
+    const ConnectedApp = connect((state) => {
       loading: state.loading
     })(App);
   
     const Context = React.createContext();
+    
+    function connect(mapStateToProps) {
+      return (Component) => {
+
+        class Receiver extends React.Component {
+
+          componentDidMount() {
+            // Knows when the store changes - use store.subscribe
+            const { subscribe } = this.props.store;
+            this.unsubscribe = subscribe(() => {
+              this.forceUpdate();
+            })
+          }
+
+          componentWillUnmount() {
+            this.unsubscribe();
+          }
+
+          render() {
+            const { dispatch, getState } = this.props.store;
+            const state = getState();
+            const stateNeeded = mapStateToProps(state);
+
+            return <Component {...stateNeeded} dispatch={dispatch} /> 
+          }
+        }
+
+        class ConnectedComponent extends React.Component {
+          render() {
+            // Get the store from Context
+            return (
+              <Context.Consumer>
+              {(store) => <Receiver store={store}/>}
+              </Context.Consumer>
+            )
+          }
+        }
+        
+        return ConnectedComponent;
+      }
+    }
 
     class Provider extends React.Component {
       render() {
